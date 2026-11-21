@@ -25,3 +25,6 @@ html,body{background:#fff}
 .nx-guide-steps p{font-size:14px;line-height:1.7;margin:0}
 .nx-guide-note{text-align:center;font-size:13px;color:#777;margin-top:28px}
 @media(max-width:680px){.nx-guide-steps{grid-template-columns:1fr}}
+.nx-editorials-two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.nx-routines>a>div{width:100%}
+@media(max-width:680px){.nx-editorials-two{grid-template-columns:1fr}}

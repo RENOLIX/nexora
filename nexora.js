@@ -46,16 +46,15 @@ homePage = function () {
   <nav class="cm-category-rail cm-wrap" aria-label="Découvrir les catégories">${cmCategories.map(([id, label, img]) => `<a href="${cmCollection(id)}"><img src="/assets/home/${img}" alt="" loading="lazy"><span>${label}</span></a>`).join('')}</nav>
   <section class="cm-brand-section cm-wrap" id="marques"><h2>Votre boutique de robes et pyjamas</h2><div class="cm-featured-brands">${all.slice(0, 4).map(p => `<article><a href="${p.url}"><img src="${cpSafe(cpImage(p))}" alt="${cpSafe(p.name)}" loading="lazy"></a><h3>${cpSafe(p.color.toUpperCase())}</h3><a class="cm-button" href="${p.url}">DÉCOUVRIR</a></article>`).join('')}</div></section>
   ${cmEditorial([
-    ['robes', 'Les gandouras brodées', 'Des broderies raffinées et des coupes amples pour être belle et à l’aise à la maison.', 'bloc-1.webp', 'Robes'],
-    ['robes', 'Les couleurs de la saison', 'Bleu ciel, fuchsia, vert anis : trouvez la couleur qui vous ressemble.', 'bloc-2.webp', 'Robes'],
-    ['pyjamas', 'Les pyjamas', 'Douceur et confort pour vos nuits. Notre collection arrive bientôt.', 'bloc-3.webp', 'Pyjamas']
-  ])}
+    ['robes', 'Les gandouras brodées', 'Des broderies raffinées et des coupes amples pour être belle et à l’aise à la maison.', 'bloc-robes.webp', 'Robes'],
+    ['pyjamas', 'Les pyjamas', 'Satin doux et finitions passepoilées : le confort élégant pour vos nuits.', 'bloc-pyjamas.webp', 'Pyjamas']
+  ], false).replace('class="cm-editorials cm-wrap"', 'class="cm-editorials cm-wrap nx-editorials-two"')}
   ${cmProducts('Les tendances', all, 'cm-trending')}
-  ${cmEditorial([
-    ['robes', 'Élégance au quotidien', 'Des pièces confortables à porter tous les jours comme pour recevoir.', 'bloc-4.webp', 'Robes'],
-    ['robes', 'Broderies raffinées', 'Fils dorés, perles et motifs floraux : le détail qui fait la différence.', 'bloc-5.webp', 'Robes'],
-    ['pyjamas', 'Nuits douces', 'Bientôt, des pyjamas pensés pour votre confort.', 'bloc-6.webp', 'Pyjamas']
-  ], false)}
+  <section class="cm-routines cm-wrap nx-routines" aria-label="Nos engagements">${[
+    ['#f6efe9', 'Nos finitions', 'Des broderies soignées, pièce par pièce', cmCollection('robes')],
+    ['#eef3f9', 'Bien choisir', 'Votre taille du M au XXL, sans hésiter', '/guide-tailles/'],
+    ['#f1f6e8', 'Commande facile', 'Payez à la livraison, partout en Algérie', '/livraison-retours/']
+  ].map(([color, tag, title, url]) => `<a href="${url}" style="--routine-color:${color}"><div><span>${tag}</span><h2>${title}</h2><b>DÉCOUVRIR ${svg('arrow')}</b></div></a>`).join('')}</section>
   ${cmProducts('Notre sélection', all.slice().reverse(), 'cm-selection')}
   <section class="cm-service-strip"><div>${svg('pin')}<p><strong>Livraison en Algérie</strong><span>À domicile ou en bureau</span></p></div><div>${svg('bag')}<p><strong>Paiement à la livraison</strong><span>Prix en dinars algériens</span></p></div><div>${svg('user')}<p><strong>À votre écoute</strong>${NEXORA_CONTACT.phone ? `<a href="tel:${nxTel()}">${cpSafe(NEXORA_CONTACT.phone)}</a>` : '<a href="/contact/">Nous contacter</a>'}</p></div></section>
   </main><button class="cm-backtop" aria-label="Revenir en haut">⌃</button><a class="cm-contact-bubble" href="${NEXORA_CONTACT.whatsapp ? `https://wa.me/${cpSafe(NEXORA_CONTACT.whatsapp)}` : '/contact/'}" aria-label="Contacter Nexora"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-9l-6 4v-4H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z"/></svg></a>`;
