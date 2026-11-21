@@ -6,7 +6,9 @@ Site : https://renolix.github.io/nexora/
 
 ## Modifier les produits
 
-Tout le catalogue est dans `nexora-catalog.js` : nom, catégorie (`robes` ou `pyjamas`), prix en DA, couleur, tailles et photos (`assets/produits/`).
+Tout le catalogue est dans `nexora-catalog.js` (3 robes pour l’instant) : nom, catégorie (`robes` ou `pyjamas`), prix en DA, couleur, tailles et photos (`assets/produits/`).
+
+
 
 ## Coordonnées
 

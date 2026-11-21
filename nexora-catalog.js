@@ -4,40 +4,22 @@
   const SIZES = ['M', 'L', 'XL', 'XXL'];
   const items = [
     {
-      id: 'gandoura-rubis', name: 'Gandoura brodée Rubis', category: 'robes', price: 4200, oldPrice: 4900,
-      color: 'Framboise', swatch: '#a3214f', images: ['rubis-1', 'rubis-2'], badge: 'Best-seller',
-      description: 'Gandoura longue et fluide couleur framboise, ornée d’un plastron brodé aux motifs floraux rose et argent. Manches mi-longues finies par un galon brodé. Une pièce élégante pour la maison comme pour recevoir.',
-      details: 'Coupe ample et confortable · Broderie plastron et manches · Tissu crêpe fluide · Longueur maxi'
-    },
-    {
-      id: 'gandoura-fuchsia-col-v', name: 'Gandoura col V Fuchsia', category: 'robes', price: 3900,
-      color: 'Fuchsia', swatch: '#c2279b', images: ['fuchsia-1', 'fuchsia-2'], badge: 'Nouveau',
-      description: 'Gandoura fuchsia au col V souligné de passementerie, avec une broderie florale dorée, verte et lilas. Les manches reprennent le motif brodé pour un ensemble harmonieux.',
-      details: 'Col V avec cordon décoratif · Broderie florale · Tissu crêpe fluide · Longueur maxi'
-    },
-    {
       id: 'gandoura-bleu-ciel', name: 'Gandoura brodée Bleu ciel', category: 'robes', price: 4200,
-      color: 'Bleu ciel', swatch: '#8fbfe7', images: ['ciel-1', 'ciel-2'],
-      description: 'Gandoura bleu ciel au plastron richement brodé de fils dorés et de perles framboise, rehaussé de petites fleurs. Douce, légère et lumineuse.',
-      details: 'Broderie dorée et perles · Finitions brodées aux manches · Tissu crêpe fluide · Longueur maxi'
+      color: 'Bleu ciel', swatch: '#6faee6', images: ['robe-bleu-ciel'],
+      description: 'Gandoura bleu ciel à encolure carrée, ornée d’un plastron brodé aux fils dorés, fleurs roses et motif framboise. Manches trois-quarts finies par une broderie assortie.',
+      details: 'Encolure carrée · Broderie plastron et manches · Coupe évasée · Longueur maxi'
     },
     {
-      id: 'gandoura-bleu-roi', name: 'Gandoura brodée Bleu roi', category: 'robes', price: 4500,
-      color: 'Bleu roi', swatch: '#2130b5', images: ['roi-1', 'roi-2'], badge: 'Coup de cœur',
-      description: 'Gandoura bleu roi au plastron brodé de feuillages vert anis, de fleurs bleues et de tiges rouges. Une couleur intense et une broderie généreuse, reprise sur les manches.',
-      details: 'Broderie florale multicolore · Strass discrets · Tissu crêpe fluide · Longueur maxi'
+      id: 'gandoura-fuchsia', name: 'Gandoura brodée Fuchsia', category: 'robes', price: 4200,
+      color: 'Fuchsia', swatch: '#c0137e', images: ['robe-fuchsia'],
+      description: 'Gandoura fuchsia au col fendu bordé de passementerie, avec une broderie florale dorée, verte et rose. Les manches reprennent le motif brodé.',
+      details: 'Col fendu brodé · Broderie florale · Coupe évasée · Longueur maxi'
     },
     {
-      id: 'gandoura-anis', name: 'Gandoura Feuille d’or Anis', category: 'robes', price: 3900,
-      color: 'Vert anis', swatch: '#a9cd3d', images: ['anis-1'],
-      description: 'Gandoura vert anis au plastron brodé en forme de feuille, dans des tons dorés, bleus et verts, parsemé de perles. Une couleur fraîche et pleine de peps.',
-      details: 'Broderie feuille et perles · Galon brodé aux manches · Tissu crêpe fluide · Longueur maxi'
-    },
-    {
-      id: 'gandoura-rose-prune', name: 'Gandoura ton sur ton Rose prune', category: 'robes', price: 4200,
-      color: 'Rose prune', swatch: '#b23a6f', images: ['prune-1'],
-      description: 'Gandoura rose prune à la broderie ton sur ton raffinée, sertie de petites perles dorées. Une élégance discrète pour toutes les occasions.',
-      details: 'Broderie ton sur ton · Perles dorées · Manches brodées · Tissu crêpe fluide'
+      id: 'gandoura-vert-anis', name: 'Gandoura brodée Vert anis', category: 'robes', price: 4200,
+      color: 'Vert anis', swatch: '#9fd42a', images: ['robe-vert-anis'],
+      description: 'Gandoura vert anis au plastron brodé en forme de feuille, dans des tons verts et dorés, rehaussé de perles. Manches trois-quarts brodées.',
+      details: 'Broderie feuille et perles · Manches brodées · Coupe évasée · Longueur maxi'
     }
   ];
   window.NEXORA_SIZES = SIZES;
