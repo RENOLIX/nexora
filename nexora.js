@@ -11,7 +11,7 @@ const NEXORA_CONTACT = {
 
 
 // Catégories (mêmes vignettes que Cosmoplus : assets/home/category-*.png)
-cmCategories.splice(0, cmCategories.length, ['robes', 'ROBES', 'category-robes.png'], ['pyjamas', 'PYJAMAS', 'category-pyjamas.png']);
+cmCategories.splice(0, cmCategories.length, ['robes', 'ROBES', 'category-robes.png?v=2'], ['pyjamas', 'PYJAMAS', 'category-pyjamas.png?v=2']);
 const nxRobes = () => cpVisible().filter(p => p.category === 'robes');
 const nxTel = () => NEXORA_CONTACT.phone.replace(/\s/g, '');
 
