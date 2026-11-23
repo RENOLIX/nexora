@@ -1,22 +1,33 @@
 # Nexora
 
-Boutique en ligne Nexora : robes brodées et pyjamas pour femme, livraison en Algérie, paiement à la livraison.
+Boutique en ligne Nexora : robes et pyjamas pour femme, livraison en Algérie, paiement à la livraison.
 
-Site : https://renolix.github.io/nexora/
+- Site : https://renolix.github.io/nexora/
+- Administration : https://renolix.github.io/nexora/admin/
 
-## Modifier les produits
+## Base de données
 
-Tout le catalogue est dans `nexora-catalog.js` (3 robes pour l’instant) : nom, catégorie (`robes` ou `pyjamas`), prix en DA, couleur, tailles et photos (`assets/produits/`).
+Projet Firebase `nstore-c699a` (Firestore + Authentication e-mail/mot de passe).
 
+| Collection | Contenu |
+|---|---|
+| `products` | produits (nom, catégorie, prix, couleur, tailles, photos, stock, visible) |
+| `categories` | catégories (nom, photo, ordre) — ajoutées automatiquement au menu, à l’accueil et à la boutique |
+| `orders` | commandes clients (statuts : nouvelle, confirmée, expédiée, livrée, injoignable, retour, annulée) |
+| `settings/shipping` | tarifs domicile / bureau des 58 wilayas |
+| `staff` | comptes de l’équipe (rôle `admin` ou `employee`) |
+| `meta/setup` | marque la création du premier administrateur |
 
+Règles de sécurité : `firestore.rules` (déploiement : `firebase deploy --only firestore:rules`).
 
-## Coordonnées
+## Rôles
 
-Renseignez le téléphone, WhatsApp, e-mail et Instagram en haut de `nexora.js` (objet `NEXORA_CONTACT`). Les champs vides sont masqués.
+- **Administrateur** : tout (produits, catégories, livraison, utilisateurs, suppression).
+- **Employé** : commandes (changement de statut) et produits (ajout/modification, sans suppression).
 
-## Commandes
+## Mode sombre
 
-Les commandes sont enregistrées dans Firebase (collection `orders`, champ `store: "nexora"`).
+Bouton lune/soleil dans l’en-tête ; styles dans `nexora-dark.css`.
 
 ## Développement
 

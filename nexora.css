@@ -28,3 +28,23 @@ html,body{background:#fff}
 .nx-editorials-two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .nx-routines>a>div{width:100%}
 @media(max-width:680px){.nx-editorials-two{grid-template-columns:1fr}}
+
+/* Logo image */
+.nx-logo{display:flex;align-items:center;line-height:0}
+.nx-logo img{height:52px;width:auto;display:block}
+.nx-logo-footer img{height:60px}
+@media(max-width:900px){.nx-logo img{height:44px}}
+@media(max-width:680px){.nx-logo img{height:36px}.nx-logo-footer img{height:48px}}
+
+/* Barre de menu : plus de bloc coloré collé sous le header, liens centrés */
+@media(min-width:901px){.cm-nav{justify-content:center!important;gap:clamp(8px,2.4vw,40px)!important}}
+.cm-nav>a.cm-nav-featured{background:transparent!important;color:#8a5bb0!important;font-weight:700;padding:0 15px!important}
+.cm-nav>a.cm-nav-featured:hover{text-decoration:underline}
+
+/* Bouton mode sombre */
+.nx-theme-toggle{display:grid;place-items:center}
+.nx-theme-toggle svg{width:24px;height:24px}
+.nx-theme-toggle .nx-sun{display:none}
+html[data-theme=dark] .nx-theme-toggle .nx-sun{display:block}
+html[data-theme=dark] .nx-theme-toggle .nx-moon{display:none}
+html{transition:background-color .2s}

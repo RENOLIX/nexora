@@ -11,7 +11,10 @@ const NEXORA_CONTACT = {
 
 
 // Catégories (mêmes vignettes que Cosmoplus : assets/home/category-*.png)
-cmCategories.splice(0, cmCategories.length, ['robes', 'ROBES', 'category-robes.png?v=2'], ['pyjamas', 'PYJAMAS', 'category-pyjamas.png?v=2']);
+cmCategories.splice(0, cmCategories.length, ['robes', 'ROBES', '/assets/home/category-robes.png?v=2'], ['pyjamas', 'PYJAMAS', '/assets/home/category-pyjamas.png?v=2']);
+// Vignette de catégorie : chemin du site ou photo envoyée depuis l'admin (data URL)
+const nxCatImg = img => img || '/assets/home/category-robes.png?v=2';
+cmCatalogCategories = active => `<nav class="cm-category-rail cm-catalog-categories" aria-label="Catégories de produits">${cmCategories.map(([id, label, img]) => `<a href="${cmCollection(id)}" ${active === id ? 'aria-current="page"' : ''}><img src="${cpSafe(nxCatImg(img))}" alt="" loading="lazy"><span>${cpSafe(label)}</span></a>`).join('')}</nav>`;
 const nxRobes = () => cpVisible().filter(p => p.category === 'robes');
 const nxTel = () => NEXORA_CONTACT.phone.replace(/\s/g, '');
 
@@ -22,9 +25,9 @@ shellHeader = function () {
   return `<div class="cm-promo"><a href="/livraison-retours/"><strong>Livraison en Algérie</strong> à domicile et en bureau <span>· Voir les conditions</span></a><span class="cm-locale">FR&nbsp; | &nbsp;DA</span></div>
   <header class="site-header cm-header"><div class="cm-header-main">
     <button class="icon-button cm-menu" id="menu-toggle" aria-label="Ouvrir le menu">${svg('menu')}</button>
-    <a class="cm-logo" href="/" aria-label="Nexora, accueil">nexora</a>
+    <a class="cm-logo nx-logo" href="/" aria-label="Nexora, accueil"><img src="/assets/logo-nexora.webp" alt="Nexora" width="748" height="220"></a>
     <form class="header-search cm-search" id="header-search" role="search"><input name="q" type="search" placeholder="Rechercher dans toute la boutique…" aria-label="Rechercher un produit"><button aria-label="Rechercher">${svg('search')}</button></form>
-    <div class="cm-header-actions"><button class="icon-button cm-search-toggle" id="search-toggle" aria-label="Rechercher">${svg('search')}</button><button class="icon-button cm-wishlist-toggle" data-wishlist-toggle aria-label="Mes favoris">${cmHeart}<span class="cm-favorite-count" hidden></span></button><button class="icon-button bag-link" id="cart-toggle" aria-label="Ouvrir le panier">${svg('bag')}<span class="bag-count" data-cart-count>0</span></button><a class="icon-button cm-account" href="/profil/" aria-label="Mon compte">${cmAccount}</a></div>
+    <div class="cm-header-actions"><button class="icon-button nx-theme-toggle" type="button" data-theme-toggle aria-label="Activer le mode sombre"><svg class="nx-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg><svg class="nx-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button><button class="icon-button cm-search-toggle" id="search-toggle" aria-label="Rechercher">${svg('search')}</button><button class="icon-button cm-wishlist-toggle" data-wishlist-toggle aria-label="Mes favoris">${cmHeart}<span class="cm-favorite-count" hidden></span></button><button class="icon-button bag-link" id="cart-toggle" aria-label="Ouvrir le panier">${svg('bag')}<span class="bag-count" data-cart-count>0</span></button><a class="icon-button cm-account" href="/profil/" aria-label="Mon compte">${cmAccount}</a></div>
   </div><nav class="main-nav cm-nav" id="main-nav" aria-label="Navigation principale"><a class="cm-nav-featured" href="/nouveautes/">Nouveautés</a>${CP_CATEGORIES.map(([id, label]) => `<a href="${cmCollection(id)}">${label}</a>`).join('')}<a href="/guide-tailles/">Guide des tailles</a><a href="/contact/">Contact</a><a href="${cmCollection()}">Tous les produits</a></nav>
   <form class="search-panel" id="search-form" role="search" hidden><label for="search-input">Rechercher un produit</label><div><input id="search-input" name="q" type="search" placeholder="Robe, couleur…"><button type="submit">RECHERCHER</button></div></form></header>${commerce}
   <dialog class="cm-wishlist" id="cm-wishlist"><div class="cm-dialog-heading"><h2>Mes favoris</h2><button class="icon-button" data-close-wishlist aria-label="Fermer les favoris">${svg('close')}</button></div><div id="cm-wishlist-items"></div></dialog>`;
@@ -43,7 +46,7 @@ homePage = function () {
     ['NOUVELLE COLLECTION', 'Gandouras', 'brodées', 'Robes d’intérieur & pyjamas', 'hero-nexora.jpg', cmCollection('robes'), '#f3ece6', '#f3ece6', 'Gandouras brodées fuchsia, bleu ciel et vert anis sur mannequins']
   ];
   return `<main class="cm-home"><section class="cm-hero" aria-label="À la une chez Nexora" aria-roledescription="carrousel">${slides.map(([eyebrow, title, big, subtitle, img, url, color, mobileColor, alt], i) => `<div class="hero-slide ${i ? 'cm-product-campaign' : 'active'}" data-slide="${i}" style="--hero-color:${color};--hero-mobile-color:${mobileColor}">${cmHeroImage(img, i, alt)}<div class="cm-hero-copy"><h${i ? '2' : '1'}>${eyebrow}</h${i ? '2' : '1'}><p>${title}<strong>${big}</strong></p><span>${subtitle}</span><a class="cm-button" href="${url}">DÉCOUVRIR</a><small>Livraison partout en Algérie · Prix en DA</small></div></div>`).join('')}<button class="cm-hero-arrow cm-prev" data-direction="-1" aria-label="Bannière précédente">${svg('chevron')}</button><button class="cm-hero-arrow cm-next" data-direction="1" aria-label="Bannière suivante">${svg('chevron')}</button></section><div class="cm-hero-dots">${slides.map((_, i) => `<button class="${i ? '' : 'active'}" data-go="${i}" aria-label="Afficher la bannière ${i + 1}"></button>`).join('')}<button class="cm-hero-pause" aria-label="Mettre le défilement en pause" aria-pressed="false">Ⅱ</button></div>
-  <nav class="cm-category-rail cm-wrap" aria-label="Découvrir les catégories">${cmCategories.map(([id, label, img]) => `<a href="${cmCollection(id)}"><img src="/assets/home/${img}" alt="" loading="lazy"><span>${label}</span></a>`).join('')}</nav>
+  <nav class="cm-category-rail cm-wrap" aria-label="Découvrir les catégories">${cmCategories.map(([id, label, img]) => `<a href="${cmCollection(id)}"><img src="${cpSafe(nxCatImg(img))}" alt="" loading="lazy"><span>${label}</span></a>`).join('')}</nav>
   <section class="cm-brand-section cm-wrap" id="marques"><h2>Votre boutique de robes et pyjamas</h2><div class="cm-featured-brands">${all.slice(0, 4).map(p => `<article><a href="${p.url}"><img src="${cpSafe(cpImage(p))}" alt="${cpSafe(p.name)}" loading="lazy"></a><h3>${cpSafe(p.color.toUpperCase())}</h3><a class="cm-button" href="${p.url}">DÉCOUVRIR</a></article>`).join('')}</div></section>
   ${cmEditorial([
     ['robes', 'Les gandouras brodées', 'Des broderies raffinées et des coupes amples pour être belle et à l’aise à la maison.', 'bloc-robes.webp', 'Robes'],
@@ -64,7 +67,7 @@ homePage = function () {
 shellFooter = function () {
   const c = NEXORA_CONTACT;
   const contact = [c.email && `<strong>E-mail</strong><a href="mailto:${cpSafe(c.email)}">${cpSafe(c.email)}</a>`, c.phone && `<strong>Téléphone</strong><a href="tel:${nxTel()}">${cpSafe(c.phone)}</a>`, c.instagram && `<strong>Instagram</strong><a href="https://instagram.com/${cpSafe(c.instagram)}">@${cpSafe(c.instagram)}</a>`].filter(Boolean).join('');
-  return `<footer class="cm-footer"><div class="cm-wrap cm-footer-grid"><div class="cm-footer-brand"><a class="cm-logo" href="/">nexora</a><span>Votre élégance, au quotidien.</span><div class="cm-brand-seal">NEXORA<br><small>ROBES · PYJAMAS</small></div></div><div class="cm-footer-links"><h2>Liens utiles</h2><a href="/a-propos/">À propos de nous</a><a href="/aide/">Questions fréquentes</a><a href="/guide-tailles/">Guide des tailles</a><a href="/conditions-generales-vente/">Conditions générales de vente</a><a href="/livraison-retours/">Livraison & retours</a><a href="/confidentialite/">Confidentialité</a><a href="/mentions-legales/">Mentions légales</a></div><div class="cm-footer-contact"><h2>Une question ? Contactez-nous</h2>${contact}<h2>Restons en contact</h2><p>Besoin d’un conseil pour votre taille ou votre commande ?</p><a class="cm-contact-link" href="/contact/">Écrivez à Nexora <span>→</span></a></div></div><div class="cm-wrap cm-footer-bottom"><span>© NEXORA ${new Date().getFullYear()} · Tous droits réservés.</span><span>PAIEMENT À LA LIVRAISON &nbsp;|&nbsp; DA</span></div></footer>`;
+  return `<footer class="cm-footer"><div class="cm-wrap cm-footer-grid"><div class="cm-footer-brand"><a class="cm-logo nx-logo nx-logo-footer" href="/"><img src="/assets/logo-nexora.webp" alt="Nexora" width="748" height="220" loading="lazy"></a><span>Votre élégance, au quotidien.</span><div class="cm-brand-seal">NEXORA<br><small>ROBES · PYJAMAS</small></div></div><div class="cm-footer-links"><h2>Liens utiles</h2><a href="/a-propos/">À propos de nous</a><a href="/aide/">Questions fréquentes</a><a href="/guide-tailles/">Guide des tailles</a><a href="/conditions-generales-vente/">Conditions générales de vente</a><a href="/livraison-retours/">Livraison & retours</a><a href="/confidentialite/">Confidentialité</a><a href="/mentions-legales/">Mentions légales</a></div><div class="cm-footer-contact"><h2>Une question ? Contactez-nous</h2>${contact}<h2>Restons en contact</h2><p>Besoin d’un conseil pour votre taille ou votre commande ?</p><a class="cm-contact-link" href="/contact/">Écrivez à Nexora <span>→</span></a></div></div><div class="cm-wrap cm-footer-bottom"><span>© NEXORA ${new Date().getFullYear()} · Tous droits réservés.</span><span>PAIEMENT À LA LIVRAISON &nbsp;|&nbsp; DA</span></div></footer>`;
 };
 
 aboutPage = () => `<main class="cm-about-page"><section class="cm-about-hero"><img src="/assets/home/hero-nexora.jpg" alt="Collection Nexora"><div><h1>L’élégance au quotidien</h1><p>Nexora, vos robes brodées et pyjamas en Algérie.</p></div></section><section class="cm-wrap cm-about-story"><h2>Votre élégance, votre confort.</h2><p>Nexora réunit une sélection de gandouras et robes d’intérieur brodées, choisies pour la finesse de leurs broderies, la fluidité de leurs tissus et le confort de leurs coupes. Notre collection de pyjamas arrive très bientôt. Livraison partout en Algérie et paiement à la livraison.</p><a class="cm-button" href="${cmCollection()}">DÉCOUVRIR NOS PRODUITS</a></section></main>`;
@@ -127,3 +130,18 @@ window.addEventListener('kb:render', () => {
   if (page === 'product') { const p = byId(new URLSearchParams(location.search).get('id') || document.body.dataset.productId); if (p) document.title = `${p.name} | Nexora`; }
   if (['collection', 'category'].includes(page)) { const c = new URLSearchParams(location.search).get('categorie'); document.title = `${c ? cpCat(c) : 'Toute la boutique'} | Nexora`; }
 });
+
+// Applique le catalogue en cache (produits et catégories de l'admin) avant le premier affichage.
+try { nxApplyCatalog(JSON.parse(localStorage.getItem(NX_CACHE_KEY) || 'null')); } catch {}
+
+// Mode sombre : bouton dans l'en-tête, choix mémorisé dans le navigateur.
+function nxSetTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  try { localStorage.setItem('nexora-theme', theme); } catch {}
+  document.querySelectorAll('[data-theme-toggle]').forEach(b => b.setAttribute('aria-label', theme === 'dark' ? 'Activer le mode clair' : 'Activer le mode sombre'));
+}
+document.addEventListener('click', event => {
+  if (!event.target.closest('[data-theme-toggle]')) return;
+  nxSetTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+});
+window.addEventListener('kb:render', () => nxSetTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'));

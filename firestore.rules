@@ -1,0 +1,75 @@
+rules_version = '2';
+// Nexora : lecture publique du catalogue, écriture réservée à l'équipe.
+// Rôles : 'admin' (tout) et 'employee' (commandes + produits, sans suppression).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function staffDoc() { return /databases/$(database)/documents/staff/$(request.auth.uid); }
+    function isStaff() { return signedIn() && exists(staffDoc()); }
+    function isAdmin() { return isStaff() && get(staffDoc()).data.role == 'admin'; }
+    function setupDoc() { return /databases/$(database)/documents/meta/setup; }
+    function validStaff() {
+      return request.resource.data.role in ['admin', 'employee']
+        && request.resource.data.email is string
+        && request.resource.data.name is string;
+    }
+
+    // Premier compte : possible une seule fois, tant que meta/setup n'existe pas.
+    match /meta/setup {
+      allow read: if true;
+      allow create: if signedIn()
+        && !exists(setupDoc())
+        && request.resource.data.by == request.auth.uid
+        && existsAfter(staffDoc());
+    }
+
+    match /staff/{uid} {
+      allow read: if isStaff();
+      allow create: if (isAdmin() && validStaff())
+        || (signedIn() && request.auth.uid == uid
+            && request.resource.data.role == 'admin' && validStaff()
+            && !exists(setupDoc()) && existsAfter(setupDoc()));
+      allow update: if isAdmin() && validStaff();
+      allow delete: if isAdmin() && request.auth.uid != uid;
+    }
+
+    match /products/{id} {
+      allow read: if true;
+      allow create, update: if isStaff();
+      allow delete: if isAdmin();
+    }
+
+    match /categories/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /orders/{id} {
+      allow read: if isStaff();
+      allow delete: if isAdmin();
+      allow create: if request.resource.data.currency == 'DZD'
+        && request.resource.data.payment == 'livraison'
+        && request.resource.data.status == 'nouvelle'
+        && request.resource.data.customer is map
+        && request.resource.data.delivery is map
+        && request.resource.data.items is list
+        && request.resource.data.items.size() > 0
+        && request.resource.data.items.size() <= 30
+        && request.resource.data.subtotal is int
+        && request.resource.data.shippingFee is int
+        && request.resource.data.total == request.resource.data.subtotal + request.resource.data.shippingFee
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if (isStaff()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
+          && request.resource.data.status in ['nouvelle', 'confirmee', 'expediee', 'livree', 'annulee', 'injoignable', 'retour'])
+        || (isAdmin()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['customer', 'delivery', 'notes', 'status', 'updatedAt']));
+    }
+  }
+}
