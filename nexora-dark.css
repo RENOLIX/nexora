@@ -334,3 +334,14 @@ html[data-theme=dark] .empty-state,html[data-theme=dark] .faq-list details{backg
 html[data-theme=dark] img.nx-logo-img{filter:none}
 html[data-theme=dark] .cm-hero-copy>span{background:#b0a7ce!important;color:#14110e!important}
 html[data-theme=dark] .cm-nav>a.cm-nav-featured{background:transparent!important;color:#c7a6e6!important}
+
+/* Photos produits en mode sombre : fond blanc conservé et pas de fusion « multiply » (qui les noircissait). */
+html[data-theme=dark] body img{mix-blend-mode:normal!important}
+html[data-theme=dark] body :is(.product-card,.cm-product) .card-image,
+html[data-theme=dark] body :is(.product-card,.cm-product) .card-image img,
+html[data-theme=dark] body .card-image,
+html[data-theme=dark] body .cm-main-photo,html[data-theme=dark] body .cm-main-photo img,
+html[data-theme=dark] body .cm-detail-thumbs .thumb,html[data-theme=dark] body .cm-detail-thumbs .thumb img,
+html[data-theme=dark] body .cm-cart-product img,html[data-theme=dark] body .drawer-item img,html[data-theme=dark] body .checkout-item img,
+html[data-theme=dark] body #cm-wishlist-items img{background:#fff!important}
+html[data-theme=dark] body :is(.product-card,.cm-product) .card-image{border-radius:6px;overflow:hidden}
